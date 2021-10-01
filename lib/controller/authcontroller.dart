@@ -8,18 +8,11 @@ class AuthController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
   var isSignedIn = false.obs;
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmpasswordController = TextEditingController();
-
   User? get user => auth.currentUser;
 
   @override
   void onInit() {
     isSignedIn.value = user != null;
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
-    TextEditingController confirmpasswordController = TextEditingController();
     super.onInit();
   }
 

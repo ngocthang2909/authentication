@@ -15,6 +15,8 @@ import 'package:test_register/setup/constant.dart';
 
 class SignIn extends StatelessWidget {
   SignIn({Key? key}) : super(key: key);
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,27 +42,24 @@ class SignIn extends StatelessWidget {
                   Form(
                     child: Column(children: [
                       TextForm(
-                        controller: authController.emailController,
-                        labelText: 'Email',
-                        hintText: 'Enter your email',
-                        icon1: Icons.email_rounded,
-                        icon2: Icons.close,
-                        press: () {
-                          boolController.changeVisible();
-                        },
-                        obscureText: true,
-                      ),
+                          controller: emailController,
+                          labelText: 'Email',
+                          hintText: 'Enter your email',
+                          press: () {},
+                          obscureText: false,
+                          icon: Icon(Icons.email_rounded)),
                       SizedBox(height: 20),
                       GetBuilder<BoolController>(
                           init: boolController,
                           builder: (context) {
                             return TextForm(
-                              controller: authController.passwordController,
+                              controller: passwordController,
                               labelText: 'Password',
                               hintText: 'At least 8 characters',
                               obscureText: !boolController.isVisible,
-                              icon1: Icons.visibility,
-                              icon2: Icons.visibility_off,
+                              icon: !boolController.isVisible
+                                  ? Icon(Icons.visibility_off)
+                                  : Icon(Icons.visibility),
                               press: () {
                                 boolController.changeVisible();
                               },
@@ -73,8 +72,8 @@ class SignIn extends StatelessWidget {
                   SizedBox(height: 100),
                   BottomButton(
                     press: () {
-                      authController.signIn(authController.emailController.text,
-                          authController.passwordController.text);
+                      authController.signIn(
+                          emailController.text, passwordController.text);
                       Get.to(() => HomeScreen());
                     },
                     color: color1,

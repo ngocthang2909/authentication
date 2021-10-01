@@ -10,6 +10,10 @@ import 'package:test_register/setup/constant.dart';
 
 class SignUp extends StatelessWidget {
   final AuthController authController = Get.put(AuthController());
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmpasswordController = TextEditingController();
+
   SignUp({Key? key}) : super(key: key);
 
   @override
@@ -35,30 +39,32 @@ class SignUp extends StatelessWidget {
                   Form(
                     child: Column(children: [
                       TextForm(
-                        controller: authController.emailController,
+                        controller: emailController,
                         labelText: 'Email',
                         hintText: 'Enter your email',
-                        icon1: Icons.email_rounded,
-                        icon2: Icons.close,
                         press: () {
-                          boolController.changeVisible();
+                          emailController.clear();
                         },
-                        obscureText: true,
+                        obscureText: false,
+                        icon: emailController.text.isEmpty
+                            ? Icon(Icons.email_rounded)
+                            : Icon(Icons.close),
                       ),
                       SizedBox(height: 20),
                       GetBuilder<BoolController>(
                           init: boolController,
                           builder: (context) {
                             return TextForm(
-                              controller: authController.passwordController,
                               labelText: 'Password',
                               hintText: 'At least 8 characters',
                               obscureText: !boolController.isVisible,
-                              icon1: Icons.visibility,
-                              icon2: Icons.visibility_off,
+                              icon: !boolController.isVisible
+                                  ? Icon(Icons.visibility_off)
+                                  : Icon(Icons.visibility),
                               press: () {
                                 boolController.changeVisible();
                               },
+                              controller: passwordController,
                             );
                           }),
                     ]),
@@ -68,23 +74,24 @@ class SignUp extends StatelessWidget {
                       init: boolController,
                       builder: (context) {
                         return TextForm(
-                          controller: authController.passwordController,
                           labelText: 'Password',
-                          hintText: 'Re-enter your password',
+                          hintText: 'Re-Enter your password',
                           obscureText: !boolController.isVisible,
-                          icon1: Icons.visibility,
-                          icon2: Icons.visibility_off,
+                          icon: !boolController.isVisible
+                              ? Icon(Icons.visibility_off)
+                              : Icon(Icons.visibility),
                           press: () {
                             boolController.changeVisible();
                           },
+                          controller: confirmpasswordController,
                         );
                       }),
                   SizedBox(height: 100),
                   BottomButton(
                     press: () async {
                       authController.signUp(
-                        authController.emailController.text,
-                        authController.passwordController.text,
+                        emailController.text,
+                        passwordController.text,
                       );
                       Get.to(() => HomeScreen());
                     },

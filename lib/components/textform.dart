@@ -6,13 +6,13 @@ import 'package:test_register/setup/constant.dart';
 
 class TextForm extends StatelessWidget {
   final AuthController authController = Get.put(AuthController());
-  final TextEditingController controller;
+
   final String labelText;
   final String hintText;
-  final void Function() press;
-  final IconData icon1;
-  final IconData icon2;
+  final VoidCallback press;
+  final Icon icon;
   final bool obscureText;
+  final TextEditingController controller;
 
   TextForm({
     Key? key,
@@ -20,11 +20,14 @@ class TextForm extends StatelessWidget {
     required this.hintText,
     required this.press,
     required this.obscureText,
+    required this.controller,
+    required this.icon,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       obscureText: obscureText,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.emailAddress,
@@ -34,15 +37,11 @@ class TextForm extends StatelessWidget {
           labelText: labelText,
           hintText: hintText,
           suffixIcon: Padding(
-            padding: EdgeInsets.only(right: 5),
-            child: IconButton(
-                onPressed: () {
-                  press;
-                },
-                icon: controller.text.isEmpty
-                    ? Icon(icon1, color: color1.withOpacity(0.5))
-                    : Icon(icon2, color: color1.withOpacity(0.5))),
-          ),
+              padding: EdgeInsets.only(right: 5),
+              child: IconButton(
+                onPressed: press,
+                icon: icon,
+              )),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(width: 1.5, color: color1.withOpacity(0.5)),
