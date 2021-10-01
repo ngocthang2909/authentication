@@ -14,8 +14,6 @@ import 'package:test_register/controller/boolcontroller.dart';
 import 'package:test_register/setup/constant.dart';
 
 class SignIn extends StatelessWidget {
-  final AuthController authController = Get.put(AuthController());
-
   SignIn({Key? key}) : super(key: key);
 
   @override

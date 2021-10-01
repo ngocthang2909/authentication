@@ -1,6 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_register/controller/authcontroller.dart';
@@ -18,12 +16,9 @@ class TextForm extends StatelessWidget {
 
   TextForm({
     Key? key,
-    required this.controller,
     required this.labelText,
     required this.hintText,
     required this.press,
-    required this.icon1,
-    required this.icon2,
     required this.obscureText,
   }) : super(key: key);
 
@@ -33,7 +28,6 @@ class TextForm extends StatelessWidget {
       obscureText: obscureText,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.emailAddress,
-      controller: controller,
       decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.always,
           contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
